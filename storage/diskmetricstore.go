@@ -164,9 +164,10 @@ func (dms *DiskMetricStore) GetMetricFamilies() []*dto.MetricFamily {
 					existingMF = copyMetricFamily(existingMF)
 					result[stat.pos] = existingMF
 				}
-				if mf.GetHelp() != existingMF.GetHelp() {
-					level.Info(dms.logger).Log("msg", "metric families inconsistent help strings", "err", "Metric families have inconsistent help strings. The latter will have priority. This is bad. Fix your pushed metrics!", "new", mf, "old", existingMF)
-				}
+				// not bad
+				//if mf.GetHelp() != existingMF.GetHelp() {
+				//	level.Info(dms.logger).Log("msg", "metric families inconsistent help strings", "err", "Metric families have inconsistent help strings. The latter will have priority. This is bad. Fix your pushed metrics!", "new", mf, "old", existingMF)
+				//}
 				// Type inconsistency cannot be fixed here. We will detect it during
 				// gathering anyway, so no reason to log anything here.
 				existingMF.Metric = append(existingMF.Metric, mf.Metric...)
